@@ -1,5 +1,5 @@
-
-const API_BASE_URL = '//localhost:9090/emails';
+/*
+const API_BASE_URL = '//localhost:9090/cars';
 
 const _fetchJson = (url, options) =>
   fetch(url, options).then(res => res.json()).catch(ex => console.error(ex));
@@ -34,4 +34,4 @@ export const setRead = (emailId, read = true) =>
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({read})
-  });
+  });*/

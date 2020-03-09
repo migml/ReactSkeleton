@@ -11,7 +11,7 @@ export const actionCreators = {
 	requestPetDetail: (petId) => {
 		return (dispatch, getState) => {
 			if (getState().detail.petId !== petId) {
-				axios.get(`${getState().app.APIHost}/api/lossalerts/${petId}`)
+				axios.get(`${getState().app.APIHost}/cars/${petId}`)
 					.then(function (response) {
 						dispatch({ type: RECEIVE_PET_DETAIL, petId: petId, petData: response.data });
 					})

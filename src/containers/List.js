@@ -27,7 +27,6 @@ class List extends React.Component {
     constructor(props) {
         super(props);
         this.handleFilter = this.handleFilter.bind(this);
-        console.log('a');
     }
 
     componentDidMount() {
@@ -79,21 +78,21 @@ class List extends React.Component {
                                 </div>
                             </div>;
                         } else {
-                            return list.map((pet) => <div key={pet.LossAlertId}>
+                            return list.map((car) => <div key={car.id}>
                                 <div className="row">
                                     <div className="col-md-3">
                                         <a href="http://www.google.com">
                                             <img className="img-fluid rounded mb-3 mb-md-0"
-                                                 src={pet.Pet.Images === undefined ? "https://via.placeholder.com/500/CCCCCC/FFFFFF/?text=Sin imagen" : pet.Pet.Images[ 0 ].Url}
+                                                 src={car.images === undefined ? "https://via.placeholder.com/500/CCCCCC/FFFFFF/?text=Sin imagen" : car.images[ 0 ]}
                                                  alt=""/>
                                         </a>
                                     </div>
                                     <div className="col-md-9">
-                                        <h3>{pet.Pet.PetName} <small>{pet.City}</small></h3>
-                                        <small>{pet.Pet.Type} - {pet.Pet.Color} - {pet.LossDate}</small>
-                                        <p>{pet.Description}</p>
+                                        <h3>{car.model} <small>{car.facturer}</small></h3>
+                                        <small>{car.date} - {car.facturer}</small>
+                                        <p>{car.description.substring(0,425)}...</p>
                                         <Link className="btn btn-outline-info float-right"
-                                              to={`detail/${pet.LossAlertId}`}>Ver más</Link>
+                                              to={`detail/${car.id}`}>+ Info</Link>
                                     </div>
                                 </div>
                                 <hr/>

@@ -16,7 +16,7 @@ export const actionCreators = {
         }
     }, requestPetListSSR: (page = 1, search = '') => {
         return (dispatch, getState) => {
-            return axios.get(`${getState().app.APIHost}/api/lossalerts?page=${page}` + (search !== '' ? `&search=${search}` : ''))
+            return axios.get(`${getState().app.APIHost}/cars?page=${page}` + (search !== '' ? `&search=${search}` : ''))
                 .then(function (response) {
                     dispatch({
                         type: RECEIVE_PET_LIST,

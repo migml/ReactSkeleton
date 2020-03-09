@@ -8,7 +8,7 @@ const initialState = {
     // APIHost: 'https://the-api-host.com'
     // APIHost: 'https://the-api-host.com'
     // TEST
-    APIHost:'https://localhost:5001'
+    APIHost:'http://localhost:9090'
 }
 
 export const reducer = (state = initialState, action) => {

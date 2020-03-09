@@ -11,12 +11,12 @@ var fs = require('fs'),
     router = express.Router(),
 
     // Using a JSON file as our "database"
-    EMAILS_FILE = path.join(__dirname, 'data/emails.json'),
+    carS_FILE = path.join(__dirname, 'data/cars.json'),
 
     port = process.env.PORT || 9090;
 
-function getEmails(callback) {
-    fs.readFile(EMAILS_FILE, function(err, fileContents) {
+function getcars(callback) {
+    fs.readFile(carS_FILE, function(err, fileContents) {
         if (err) {
             console.log(err);
             process.exit(1);
@@ -26,8 +26,8 @@ function getEmails(callback) {
     });
 }
 
-function saveEmails(emails, callback) {
-    fs.writeFile(EMAILS_FILE, JSON.stringify(emails, null, 4), function(err) {
+function savecars(cars, callback) {
+    fs.writeFile(carS_FILE, JSON.stringify(cars, null, 4), function(err) {
         if (err) {
             console.log(err);
             process.exit(1);
@@ -48,95 +48,103 @@ app.use(function(req, res, next) {
     next();
 });
 
-// routes that end in /emails
-router.route('/emails')
+// routes that end in /cars
+router.route('/cars')
 
-    // create an email (accessed via POST to http://localhost:9090/emails)
+    // create an car (accessed via POST to http://localhost:9090/cars)
     .post(function(req, res) {
-        getEmails(function(emails) {
-            var newEmail = assign({
+        getcars(function(cars) {
+            var newcar = assign({
                     id: Date.now(),
                     date: new Date() + '',
                     read: true
                 }, req.body),
-                newEmails = emails.concat(newEmail);
+                newcars = cars.concat(newcar);
 
             // write out file back to disk
-            saveEmails(newEmails, function() {
+            savecars(newcars, function() {
                 res.json({success: true});
             });
         });
     })
 
-    // get all the emails (access via GET from http://localhost:9090/emails)
+    // get all the cars (access via GET from http://localhost:9090/cars)
     .get(function(req, res) {
-        getEmails(function(emails) {
-            // Return back the full list of emails
+        getcars(function(cars) {
+            // Return back the full list of cars
             res.setHeader('Cache-Control', 'no-cache');
+            const result = {'Data':cars
+                .filter(function(car) { return !car.deleted; })
+                .sort(function(carA, carB) { return new Date(carB.date) - new Date(carA.date); })};
             res.json(
-                emails
-                    .filter(function(email) { return !email.deleted; })
-                    .sort(function(emailA, emailB) { return new Date(emailB.date) - new Date(emailA.date); })
+                result
             );
         });
     });
 
-// routes that end in emails/:emailId
-router.route('/emails/:emailId')
-
-    // get the email with this id (accessed via GET from http://localhost:9090/emails/:emailId)
+router.route('/images/image.jpg')
     .get(function(req, res) {
-        getEmails(function(emails) {
-            var emailIdToGet = +req.params.emailId,
-                emailToGet = find(emails, function(email) {
-                    return email.id === emailIdToGet;
+        var img = fs.readFileSync('./data/volvo-polestar.jpg');
+        res.writeHead(200, {'Content-Type': 'image/jpg' });
+        res.end(img, 'binary');
+    });
+
+// routes that end in cars/:carId
+router.route('/cars/:carId')
+
+    // get the car with this id (accessed via GET from http://localhost:9090/cars/:carId)
+    .get(function(req, res) {
+        getcars(function(cars) {
+            var carIdToGet = +req.params.carId,
+                carToGet = find(cars, function(car) {
+                    return car.id === carIdToGet;
                 });
 
-            res.json(emailToGet);
+            res.json(carToGet);
         });
     })
 
-    // update the email this id (accessed via PUT on http://localhost:9090/emails/:emailId)
+    // update the car this id (accessed via PUT on http://localhost:9090/cars/:carId)
     .put(function(req, res) {
-        getEmails(function(emails) {
-            var emailIdToUpdate = +req.params.emailId,
+        getcars(function(cars) {
+            var carIdToUpdate = +req.params.carId,
 
-                // make a new copy of the emails list, updating the appropriate email
-                updatedEmails = emails.map(function(email) {
-                    if (email.id === emailIdToUpdate) {
-                        // make a copy of the email to update before updating
-                        return assign({}, email, {
+                // make a new copy of the cars list, updating the appropriate car
+                updatedcars = cars.map(function(car) {
+                    if (car.id === carIdToUpdate) {
+                        // make a copy of the car to update before updating
+                        return assign({}, car, {
                             read: !!req.body.read
                         });
                     }
 
-                    return email;
+                    return car;
                 });
 
-            saveEmails(updatedEmails, function() {
+            savecars(updatedcars, function() {
                 res.json({success: true});
             });
         });
     })
 
-    // delete the email this id (accessed via PUT on http://localhost:9090/emails/:emailId)
+    // delete the car this id (accessed via PUT on http://localhost:9090/cars/:carId)
     .delete(function(req, res) {
-        getEmails(function(emails) {
-            var emailIdToDelete = +req.params.emailId,
+        getcars(function(cars) {
+            var carIdToDelete = +req.params.carId,
 
-                // make a new copy of the emails list, marking the appropriate email as deleted
-                updatedEmails = emails.map(function(email) {
-                    if (email.id === emailIdToDelete) {
-                        // make a copy of the email to update before updating
-                        return assign({}, email, {
+                // make a new copy of the cars list, marking the appropriate car as deleted
+                updatedcars = cars.map(function(car) {
+                    if (car.id === carIdToDelete) {
+                        // make a copy of the car to update before updating
+                        return assign({}, car, {
                             deleted: true
                         });
                     }
 
-                    return email;
+                    return car;
                 });
 
-            saveEmails(updatedEmails, function() {
+            savecars(updatedcars, function() {
                 res.json({success: true});
             });
         });

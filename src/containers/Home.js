@@ -25,8 +25,8 @@ class Home extends React.Component {
         return <div>
             <header className="home-header text-white">
                 <div className="container text-center">
-                    <h1>Static page</h1>
-                    <p className="lead">This is a static page</p>
+                    <h1>React Skeleton application</h1>
+                    <p className="lead">The beginning of your react application.</p>
                 </div>
                 <div className="row no-gutters justify-content-center">
                     <div className="col-10 col-md-10 col-lg-8">
@@ -38,10 +38,10 @@ class Home extends React.Component {
                                 <div className="col">
                                     <input name='search'
                                         className="form-control form-control-lg form-control-borderless" type="text"
-                                        placeholder="Nombre, raza, ciudad, color..." />
+                                        placeholder="Type anything to search..." />
                                 </div>
                                 <div className="col-auto">
-                                    <button className="btn btn-lg btn-info" type="submit">Buscar</button>
+                                    <button className="btn btn-lg btn-info" type="submit">Search</button>
                                 </div>
                             </div>
                         </Form>

@@ -75,8 +75,8 @@ class MainLayout extends React.Component {
         if (!this.props.cookies) {
             return <div className="text-center fixed-bottom bg-dark text-light pt-3 pb-3" role="alert">
                 <div className="cookiealert-container">
-                    <b>¿Te gustan las galletas?</b> &#x1F36A; Aquí usamos cookies para mejorar tu experiencia de usuario. <HashLink to='/about#cookies'>Saber más.</HashLink>&nbsp;&nbsp;
-                    <span onClick={this.props.acceptCookies} type="button" className="btn btn-primary btn-sm acceptcookies" aria-label="Close">Pues vale, acepto.</span>
+                    <b>Do you like cookies?</b> &#x1F36A; We use here cookies to give you a better user experience. <HashLink to='/about#cookies'>More info.</HashLink>&nbsp;&nbsp;
+                    <span onClick={this.props.acceptCookies} type="button" className="btn btn-primary btn-sm acceptcookies" aria-label="Close">It's ok.</span>
                 </div>
             </div>;
         }

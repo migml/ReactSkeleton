@@ -48,7 +48,7 @@ class Detail extends React.Component {
         if (!this.props.loading && this.props.petData !== null) {
             return <div>
                 <div className="container">
-                    <h2 className="my-4">Mascota en búsqueda</h2>
+                    <h2 className="my-4">Car detail</h2>
                     <div className="row">
                         <div className="col-lg-4">
                             {/*<div className="col-lg-12 mb-3 pl-0 pr-0" style={{ height: '300px' }}>
@@ -60,9 +60,9 @@ class Detail extends React.Component {
 										<li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
 									</ol>*/}
                                     <div className="carousel-inner">
-                                        {(this.props.petData.Pet.Images || []).map((img, i) =>
-                                            <div key={img.Url} className={"carousel-item " + (i === 0 ? 'active' : '')}>
-                                                <img className="d-block w-100" src={img.Url} alt="First slide"/>
+                                        {(this.props.petData.images || []).map((img, i) =>
+                                            <div key={i} className={"carousel-item " + (i === 0 ? 'active' : '')}>
+                                                <img className="d-block w-100" src={img} alt="First slide"/>
                                             </div>)}
                                     </div>
                                     {/*<a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -79,23 +79,17 @@ class Detail extends React.Component {
                         <div className="col-lg-8">
                             <div className="card">
                                 <div className="card-body">
-                                    <h3 className="card-title">{petName} <small>Barcelona</small></h3>
+                                    <h3 className="card-title">{petName} <small>{this.props.petData.facturer}</small></h3>
                                     <small>{this.props.petData.lossDate}</small>
                                     <p className="card-text">{description}</p>
                                 </div>
                             </div>
                             <div className="card card-outline-secondary my-4">
-                                <div className="card-header">Datos de la mascota</div>
+                                <div className="card-header">Car details</div>
                                 <div className="card-body">
-                                    <p>Nombre: {this.props.petData.Pet.PetName}</p>
-                                    <p>Tipo: {this.props.petData.Pet.Type}</p>
-                                    <p>Raza: {this.props.petData.Pet.Breed}</p>
-                                    <p>Color: {this.props.petData.Pet.Color}</p>
-                                    <p>Tamaño: {this.props.petData.Pet.Size}</p>
-                                    <p>Descripción: {this.props.petData.Pet.Description}</p>
-                                    <p>Caracter: {this.props.petData.Pet.Character}</p>
-                                    <p>Nº Chip: {this.props.petData.Pet.LicenseNumber}</p>
-                                    <p>Fecha de Nacimiento: {this.props.petData.Pet.BirthDate}</p>
+                                    <p>Nombre: {this.props.petData.date}</p>
+                                    <p>Tipo: {this.props.petData.facturer}</p>
+                                    <p>Raza: {this.props.petData.model}</p>
                                 </div>
                             </div>
                             {(() => {

@@ -17,7 +17,6 @@ export class Form extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handler = this.handler.bind(this);
 		this.state = { isValid: true, validationMessage: "BBB" };
-		console.log('a');
 	}
 
 	componentWillReceiveProps(nextProps) {
