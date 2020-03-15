@@ -73,9 +73,22 @@ router.route('/cars')
         getcars(function(cars) {
             // Return back the full list of cars
             res.setHeader('Cache-Control', 'no-cache');
-            const result = {'Data':cars
+            const page = req.query.page || 1;
+            const itemsPerPage = 5;
+            const _startingItem = itemsPerPage * (page-1);
+            const search = req.query.search || '';
+            const data = cars
                 .filter(function(car) { return !car.deleted; })
-                .sort(function(carA, carB) { return new Date(carB.date) - new Date(carA.date); })};
+                .filter((car) => search === '' ? true :(car.model.toLowerCase().includes(search.toLowerCase())))
+                // .sort(function(carA, carB) { return new Date(carB.date) - new Date(carA.date); })
+                
+            const result = {
+                pagination: {
+                    currentPage:page,
+                    totalPages:Math.ceil(data.length / itemsPerPage)
+                }
+                ,data : data.filter((car,index)=> index >= _startingItem && index <_startingItem + itemsPerPage )
+               };
             res.json(
                 result
             );

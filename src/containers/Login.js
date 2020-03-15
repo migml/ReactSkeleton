@@ -23,10 +23,6 @@ class Login extends React.Component {
         window.scrollTo(0, 0);
     }
 
-    componentWillMount() {
-        //this.props.requestLegalPolicy();
-    }
-
     render() {
         return <div>
             <div className="container">

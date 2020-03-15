@@ -7,13 +7,13 @@ import {Link} from 'react-router-dom';
 import {GridLoader} from '../components/animations/GridLoader';
 
 class Profile extends React.Component {
-    componentWillMount() {
+    /*componentWillMount() {
         this.props.requestUserPetList(1);
-    }
+    }*/
 
-    componentWillReceiveProps(nextProps) {
+    /*componentWillReceiveProps(nextProps) {
         this.props.requestUserPetList(1);
-    }
+    }*/
 
     componentDidMount() {
         window.scrollTo(0, 0);

@@ -7,9 +7,6 @@ class About extends React.Component {
 	componentDidMount() {
 		window.scrollTo(0, 0);
 	}
-	componentWillMount() {
-		// this.props.requestLegalPolicy();
-	}
 
 	render() {
 		return <div>

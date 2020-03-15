@@ -29,23 +29,21 @@ class List extends React.Component {
         this.handleFilter = this.handleFilter.bind(this);
     }
 
-    componentDidMount() {
-        window.scrollTo(0, 0);
-    }
-
     handleFilter(formData) {
         let search = formData.values.search;
         this.props.requestPetList(parseInt(this.props.match.params.page || 1), search);
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        window.scrollTo(0, 0);
         let search = (this.props.search || '');
         this.props.requestPetList(parseInt(this.props.match.params.page || 1), search);
     }
-
-    componentWillReceiveProps(nextProps) {
-        let search = (nextProps.search || '');
-        this.props.requestPetList(parseInt(nextProps.match.params.page || 1), search);
+    
+    componentDidUpdate(){
+        window.scrollTo(0, 0);
+        let search = (this.props.search || '');
+        this.props.requestPetList(parseInt(this.props.match.params.page || 1), search);
     }
 
     render() {
@@ -92,7 +90,7 @@ class List extends React.Component {
                                         <small>{car.date} - {car.facturer}</small>
                                         <p>{car.description.substring(0,425)}...</p>
                                         <Link className="btn btn-outline-info float-right"
-                                              to={`detail/${car.id}`}>+ Info</Link>
+                                              to={`/detail/${car.id}`}>+ Info</Link>
                                     </div>
                                 </div>
                                 <hr/>
@@ -106,7 +104,7 @@ class List extends React.Component {
                         let page = this.props.page;
                         let pages = [];
                         if (page > 1) {
-                            pages.push(<li className="page-item">
+                            pages.push(<li key={'prev'} className="page-item">
 
                                 <NavLink to={`/list/page/${page - 1}`} className="page-link">
                                     <span aria-hidden="true">&laquo;</span>
@@ -122,7 +120,7 @@ class List extends React.Component {
                             }
                         }
                         if (page < this.props.totalPages) {
-                            pages.push(<li className="page-item">
+                            pages.push(<li  key={'next'}  className="page-item">
                                 <NavLink to={`/list/page/${page - 1}`} className="page-link">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span className="sr-only">Next</span>

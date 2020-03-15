@@ -17,13 +17,13 @@ export const actionCreators = {
     }, requestPetListSSR: (page = 1, search = '') => {
         return (dispatch, getState) => {
             return axios.get(`${getState().app.APIHost}/cars?page=${page}` + (search !== '' ? `&search=${search}` : ''))
-                .then(function (response) {
+                .then(function (response) {       
                     dispatch({
                         type: RECEIVE_PET_LIST,
                         page: page,
                         search: search,
-                        list: response.data.Data,
-                        totalPages: response.data.TotalPages
+                        list: response.data.data,
+                        totalPages: response.data.pagination.totalPages
                     });
                 })
                 .catch(function (error) {
@@ -34,7 +34,6 @@ export const actionCreators = {
                 });
         }
     }
-
 }
 
 const initialState = {
@@ -51,12 +50,13 @@ export const reducer = (state = initialState, action) => {
         case REQUEST_PET_LIST:
             return {
                 ...state,
+                list: action.list,
                 loading: true,
                 page: action.page,
                 search: action.search
             }
         case RECEIVE_PET_LIST:
-            if (state.page === action.page && state.search === action.search) {
+                        if (state.page === action.page && state.search === action.search) {
                 return {
                     ...state,
                     loading: false,
@@ -64,7 +64,7 @@ export const reducer = (state = initialState, action) => {
                     totalPages: action.totalPages
                 }
             }
-            break;
+            return state;
         default:
             return state
     }

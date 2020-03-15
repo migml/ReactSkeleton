@@ -24,16 +24,16 @@ class Detail extends React.Component {
         this.handleSendEmail = this.handleSendEmail.bind(this);
     }
 
+    /*componentWillMount() {
+        this.props.requestPetDetail(this.props.match.params.id);
+    }*/
+
+    /*componentWillReceiveProps(nextProps) {
+        this.props.requestPetDetail(nextProps.match.params.id);
+    }*/
     componentDidMount() {
         window.scrollTo(0, 0);
-    }
-
-    componentWillMount() {
         this.props.requestPetDetail(this.props.match.params.id);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.props.requestPetDetail(nextProps.match.params.id);
     }
 
     handleSendEmail(a) {

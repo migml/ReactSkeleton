@@ -1,12 +1,9 @@
 ﻿import * as React from 'react';
 import PropTypes from 'prop-types';
 
-
 //#############################################################################
 // Formulario (engloba todos los componentes de formulario)
 //#############################################################################
-
-
 
 const inputTypes = ["textarea", "text", "hidden", "checkbox", 'email', 'date', 'file']
 
@@ -19,11 +16,11 @@ export class Form extends React.Component {
 		this.state = { isValid: true, validationMessage: "BBB" };
 	}
 
-	componentWillReceiveProps(nextProps) {
+	/*componentWillReceiveProps(nextProps) {
 		if (this.props.disabled === true && this.props.disabled !== nextProps.disabled) {
 			this.setState({ isValid: true, validationMessage: "" });
 		}
-	}
+	}*/
 
 	handler() {
 		if (this.props.onChange !== undefined) {
